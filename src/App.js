@@ -1,13 +1,15 @@
-import Nav from './components/Nav';
+import { Route } from 'react-router-dom';
+import Header from './components/Header';
+import LoginForm from './components/LoginForm';
+import Main from './components/Main';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header>
-        <h1>Alphabet Game</h1>
-        <Nav />
-      </header>
+      <Route path="/" component={Header} />
+      <Route exact path="/" component={Main} />
+      <Route exact path="/login" component={LoginForm} />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 .App {
+  background: burlywood;
   color: rgb(223, 199, 170);
+  min-height: 100vh;
   text-decoration: none;
 }
 
@@ -8,9 +10,49 @@
   color: bisque;
 }
 
+.login-form {
+  border-top: 2px solid rgb(181, 136, 82);
+  border-right: 3px solid rgb(181, 136, 82);
+  border-left: 3px solid rgb(181, 136, 82);
+  border-bottom: 3px solid rgb(181, 136, 82);
+  border-radius: .2rem;
+  background: blanchedalmond;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  color: rgb(136, 120, 100);
+  padding: 3rem;
+  width: 50%;
+  margin: 0 auto;
+}
+.login-form button {
+  margin-top: .7rem;
+}
+
+.section-description {
+  box-shadow: 0 0 .5rem .1rem black;
+  border-radius: .7rem;
+  background: rgb(181, 148, 108);
+  margin: 1rem auto;
+  min-height: 50vh;
+  width: 70%;
+}
+
+.section-description p {
+  color: rgb(80, 69, 53);
+  font-weight: 600;
+  padding: 1.3rem;
+}
+
+.header-div {
+  text-align: center;
+  flex-grow: 1;
+}
+
 header {
   background: chocolate;
-  border-bottom: 1px solid rgb(255, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
   display: flex;
   flex-flow: row;
   justify-content: center;
@@ -19,9 +61,9 @@ header {
 }
 
 h1 {
-  text-align: center;
+  display: inline-block;
+  cursor: pointer;
   text-shadow: -.3rem .3rem .6rem rgb(59, 51, 114);
-  flex-grow: 1;
   font-weight: 500;
 }
 
