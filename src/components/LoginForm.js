@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import { Button } from 'reactstrap';
 
 const LoginForm = () => {
@@ -6,6 +7,8 @@ const LoginForm = () => {
         username:'',
         password:''
     });
+
+    const { push } = useHistory();
 
     const handleChange = (event) => {
         event.stopPropagation();
@@ -21,7 +24,8 @@ const LoginForm = () => {
         setForm({
             username:'',
             password:''
-        })
+        });
+        push('/gameboard');
     }
 
     return (
