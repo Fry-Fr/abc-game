@@ -5,6 +5,21 @@
   text-decoration: none;
 }
 
+.game-board {
+  display: flex;
+  background: grey;
+  flex-flow: column;
+  margin: 0 auto;
+  width: 60%;
+  text-align: center;
+}
+
+.game-board h1 {
+  display: inline-block;
+  text-shadow: -.3rem .3rem .6rem rgb(59, 51, 114);
+  font-weight: 500;
+}
+
 .nav-bar-link {
   text-decoration: none;
   color: bisque;
@@ -28,6 +43,12 @@
 }
 .login-form button {
   margin-top: .7rem;
+}
+
+.letter {
+  cursor: pointer;
+  padding: 0;
+  margin: 0 auto;
 }
 
 .section-description {
@@ -61,7 +82,7 @@ header {
   padding: .5rem;
 }
 
-h1 {
+.header-div h1 {
   display: inline-block;
   cursor: pointer;
   text-shadow: -.3rem .3rem .6rem rgb(59, 51, 114);
@@ -73,4 +94,9 @@ li {
   cursor: pointer;
   list-style: none;
   padding: 1rem 2rem 0 0;
+}
+
+.line-through {
+  color: red;
+  text-decoration: line-through;
 }
