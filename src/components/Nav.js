@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Nav = () => {
     return (
         <nav>
             <ul>
-                <li>login</li>
+                <Link to="/login" className="nav-bar-link"><li>login</li></Link>
             </ul>
         </nav>
     )
