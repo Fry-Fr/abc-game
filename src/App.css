@@ -41,6 +41,7 @@
 
 .section-description p {
   color: rgb(80, 69, 53);
+  font-size: large;
   font-weight: 600;
   padding: 1.3rem;
 }

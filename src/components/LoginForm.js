@@ -17,7 +17,7 @@ const LoginForm = () => {
 
     const handleSublmit = (event) => {
         event.preventDefault();
-        console.log("Submiting", form.username, form.password)
+        console.log("Submiting:", form.username, form.password)
         setForm({
             username:'',
             password:''
