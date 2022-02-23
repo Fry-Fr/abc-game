@@ -75,7 +75,7 @@ li {
 
 .header-div {
   text-align: center;
-  flex-grow: 1;
+  flex-basis: 85%;
 }
 
 header {
@@ -83,7 +83,7 @@ header {
   border-bottom: 1px solid rgb(0, 0, 0);
   display: flex;
   flex-flow: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding: .5rem;
 }
