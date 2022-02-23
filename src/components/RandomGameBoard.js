@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-const GameBoard = () => {
+const RandomBoard = () => {
     const [count, setCount] = useState(0);
     const [visited, setVistited] = useState([0])
 
     const { push } = useHistory();
 
-    function reset(e) {
+    const reset = (e) => {
         e.preventDefault();
         const btn = e.target;
         if (btn.textContent === "last letter") {
-            handleClick(e);
+            handleRandomClick(e);
         }
         if (btn.textContent === "Reset") {
             push("/menu");
@@ -40,31 +40,45 @@ const GameBoard = () => {
     alphabet = alphabet.split('');
 
 
-    const handleClick = (event) => {
-        const div = document.querySelector(".gameboard");
-        
-        if (visited.length >= 26) {
-            setVistited([...visited, count + 1])
-            return
-        }
+    function randomize() {
+        if (visited.length !== 26) {
+            while (true) {
+                const randNum = Math.floor(Math.random() * 26);
+                if (visited.includes(randNum)) {
+                    continue
+                }else {
+                    setVistited([...visited, randNum])
+                    return randNum;
+                };
+            };
+        };
+    };
+
+    const handleRandomClick = (event) => {
+        event.preventDefault();
+        const div = document.querySelector('.gameboard')
 
         if (div.className === 'gameboard line-through'){
             return div.className = 'gameboard';
         }
         div.className = 'gameboard line-through';
 
+        if (visited.length >= 26) {
+            setVistited([...visited, count + 1])
+            return
+        }
+
         setTimeout(()=>{
-            setVistited([ ...visited, count + 1 ]);
-            setCount( count + 1 );
+            setCount(randomize());
         },300)
     }
 
     return(
         <div className="game-board">
-            <h1>GAMEBOARD</h1> 
+            <h1>GAMEBOARD</h1>
             <div className="gameboard-wrapper">
             {visited.length <= 25
-            ? <div className="gameboard" onClick={handleClick}>
+            ? <div className="gameboard" onClick={handleRandomClick}>
                 {alphabet[count]}
             </div>
             : <div className="gameboard" style={{cursor: "default"}}>
@@ -72,9 +86,9 @@ const GameBoard = () => {
             </div>}
             { visited.length >= 26 ? null : <><span>Click on the letter.</span>
             <span>Or</span> </> }
-            { visited.length <= 25 ? <button onClick={handleClick}>next</button> : <button onClick={reset}>last letter</button>}
+            { visited.length <= 25 ? <button onClick={handleRandomClick}>next</button> : <button onClick={reset}>last letter</button>}
             </div>
         </div>
     )
 }
-export default GameBoard;
+export default RandomBoard;

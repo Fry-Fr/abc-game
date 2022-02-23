@@ -4,9 +4,12 @@ const Main = () => {
     return (
         <section className="section-description">
             <p>
-                Bored on the highway no longer. This app shall be designed to assist you in playing the alphabet game,
-                in doing so, you will gain access to a variety of special features designed and built specifically for this application.
-                The best part, compete against your friends/family. This app connects your game to other players in your organization.
+                On those boring highway commutes, there's no reason to feel bored. This app shall be here to assist you in playing the alphabet game. (Woo-Hoo).
+                You will get access to special features specifically designed for the fun in this application.
+                Compete against your friends and family. This app connects your game with other players actively participating.
+            </p>
+            <p>
+                ** This application is not designed to be used by the driver of a vehicle. **
             </p>
         </section>
     )

@@ -25,6 +25,13 @@
   color: bisque;
 }
 
+li {
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+  padding: 1rem 2rem 0 0;
+}
+
 .login-form {
   border-top: 2px solid rgb(181, 136, 82);
   border-right: 3px solid rgb(181, 136, 82);
@@ -45,12 +52,6 @@
   margin-top: .7rem;
 }
 
-.letter {
-  cursor: pointer;
-  padding: 0;
-  margin: 0 auto;
-}
-
 .section-description {
   box-shadow: 0 0 .5rem .1rem black;
   border-radius: .7rem;
@@ -61,10 +62,15 @@
 }
 
 .section-description p {
+  text-indent: 1rem;
   color: rgb(80, 69, 53);
   font-size: large;
   font-weight: 600;
   padding: 1.3rem;
+}
+.section-description p:last-child {
+  text-align: center;
+  text-indent: 0rem;
 }
 
 .header-div {
@@ -89,14 +95,51 @@ header {
   font-weight: 500;
 }
 
-li {
-  font-weight: 700;
-  cursor: pointer;
-  list-style: none;
-  padding: 1rem 2rem 0 0;
+.home-container button {
+  background-color: rgba(250, 235, 215, 0.712);
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 25%;
 }
 
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gameboard-wrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#reset-btn {
+  background-color: #afac4c;
+}
+.gameboard-wrapper button {
+  margin: .6rem 0 0;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.gameboard::selection {
+  background:transparent;
+}
+.gameboard {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 15rem;
+  padding: 1rem;
+  margin: 0 auto;
+}
 .line-through {
-  color: red;
-  text-decoration: line-through;
+  color: rgb(97, 19, 19);
+  font-weight: 300;
 }
