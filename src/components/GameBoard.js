@@ -1,16 +1,36 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { io } from "socket.io-client";
 
-const GameBoard = () => {
+const socket = io("localhost:3333");
+socket.on("connect", () => {});
+socket.on("disconnect", () => {});
+
+const GameBoard = ({ name }) => {
     const [count, setCount] = useState(0);
-    const [visited, setVistited] = useState([0])
+    const [visited, setVistited] = useState([0]);
+    const [clients, setClients] = useState({});
+
+    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    alphabet = alphabet.toUpperCase();
+    alphabet = alphabet.split('');
 
     const { push } = useHistory();
+
+    useEffect(() => {
+        if (alphabet[count] !== clients[name]) {
+            socket.emit("setClient", {name: name, letter: alphabet[count]})
+        }
+        socket.on("clientList", (list) => {
+            setClients(list)
+        })
+    },[alphabet, count, name, clients])
 
     function reset(e) {
         e.preventDefault();
         const btn = e.target;
         if (btn.textContent === "last letter") {
+            socket.emit('forceDisconnect');
             handleClick(e);
         }
         if (btn.textContent === "Reset") {
@@ -35,11 +55,6 @@ const GameBoard = () => {
         return div.className = 'gameboard'
     },[count, visited])
 
-    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    alphabet = alphabet.toUpperCase();
-    alphabet = alphabet.split('');
-
-
     const handleClick = (event) => {
         const div = document.querySelector(".gameboard");
         
@@ -60,6 +75,7 @@ const GameBoard = () => {
     }
 
     return(
+        <>
         <div className="game-board">
             <h1>GAMEBOARD</h1> 
             <div className="gameboard-wrapper">
@@ -75,6 +91,14 @@ const GameBoard = () => {
             { visited.length <= 25 ? <button onClick={handleClick}>next</button> : <button onClick={reset}>last letter</button>}
             </div>
         </div>
+        <div style={{'color':'black', 'textAlign':'center'}}>
+            {Object.keys(clients).map(name => {
+                return (
+                    <p key={name}>{name + ' --> ' + clients[name]}</p>
+                )
+            })}
+        </div>
+        </>
     )
 }
 export default GameBoard;

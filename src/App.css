@@ -53,6 +53,10 @@ li {
 }
 
 .section-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   box-shadow: 0 0 .5rem .1rem black;
   border-radius: .7rem;
   background: rgb(181, 148, 108);
@@ -68,9 +72,12 @@ li {
   font-weight: 600;
   padding: 1.3rem;
 }
-.section-description p:last-child {
+.section-description p:nth-child(2) {
   text-align: center;
   text-indent: 0rem;
+}
+.section-description button {
+  width: 25%;
 }
 
 .header-div {

@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Main = () => {
+const Main = ({setName}) => {
+    const handleNameClick = (e) => {
+        e.stopPropagation();
+        setName(prompt("What's your name"));
+    }
     return (
         <section className="section-description">
             <p>
@@ -11,6 +15,7 @@ const Main = () => {
             <p>
                 ** This application is not designed to be used by the driver of a vehicle. **
             </p>
+            <button onClick={handleNameClick}>Enter name:</button>
         </section>
     )
 }
