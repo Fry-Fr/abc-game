@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const RandomBoard = () => {
     const [count, setCount] = useState(0);
     const [visited, setVistited] = useState([0])
 
-    const { push } = useHistory();
+    const navigate = useNavigate();
 
     const reset = (e) => {
         e.preventDefault();
@@ -14,7 +14,7 @@ const RandomBoard = () => {
             handleRandomClick(e);
         }
         if (btn.textContent === "Reset") {
-            push("/menu");
+            navigate("/menu");
         }
     }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button } from 'reactstrap';
 
 const LoginForm = () => {
@@ -8,7 +8,7 @@ const LoginForm = () => {
         password:''
     });
 
-    const { push } = useHistory();
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         event.stopPropagation();
@@ -25,7 +25,7 @@ const LoginForm = () => {
             username:'',
             password:''
         });
-        push('/gameboard');
+        navigate('/gameboard');
     }
 
     return (

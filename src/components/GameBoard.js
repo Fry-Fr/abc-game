@@ -1,5 +1,5 @@
-import React, {useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import {useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { io } from "socket.io-client";
 
 const socket = io("localhost:3333");
@@ -15,7 +15,7 @@ const GameBoard = ({ name }) => {
     alphabet = alphabet.toUpperCase();
     alphabet = alphabet.split('');
 
-    const { push } = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (alphabet[count] !== clients[name]) {
@@ -34,7 +34,7 @@ const GameBoard = ({ name }) => {
             handleClick(e);
         }
         if (btn.textContent === "Reset") {
-            push("/menu");
+            navigate("/menu");
         }
     }
 

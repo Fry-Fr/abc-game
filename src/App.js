@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import LoginForm from './components/LoginForm';
 import Main from './components/Main';
@@ -12,12 +12,14 @@ function App() {
   const [name, setName] = useState('');
   return (
     <div className="App">
-      <Route path="/" component={Header} />
-      <Route exact path="/" component={() => <Main setName={setName} /> } />
-      <Route exact path="/login" component={LoginForm} />
-      <Route exact path="/menu" component={Menu} />
-      <Route exact path="/alphabetical-board" component={() => <GameBoard name={name} />} />
-      <Route exact path="/random-board" component={RandomBoard} />
+      <Header/>
+      <Routes>
+        <Route index element={<Main setName={setName}/>} />
+        <Route path="login" element={<LoginForm/>} />
+        <Route path="menu" element={<Menu/>} />
+        <Route path="alphabetical-board" element={<GameBoard name={name}/>} />
+        <Route path="random-board" element={<RandomBoard/>} />
+      </Routes>
     </div>
   );
 }
