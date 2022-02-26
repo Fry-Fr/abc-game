@@ -1,5 +1,6 @@
 import {useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Table, Button } from 'reactstrap';
 import { io } from "socket.io-client";
 
 const socket = io("localhost:3333");
@@ -47,13 +48,12 @@ const GameBoard = ({ name }) => {
 
     useEffect(()=>{
         const div = document.querySelector('.gameboard');
-        const btn = document.querySelector('button');
+        const btn = document.querySelector('.btn');
         
         if (visited.length >= 27) {
             div.textContent = "Game Over!";
             div.style.fontSize = "5rem";
             btn.textContent = "Reset";
-            btn.id = 'reset-btn';
         }
         
         if (div.className === 'gameboard line-through'){
@@ -95,15 +95,28 @@ const GameBoard = ({ name }) => {
             </div>}
             { visited.length >= 26 ? null : <><span>Click on the letter.</span>
             <span>Or</span> </> }
-            { visited.length <= 25 ? <button onClick={handleClick}>next</button> : <button onClick={reset}>last letter</button>}
+            { visited.length <= 25 ? <Button color='danger' onClick={handleClick}>next</Button> : <Button color='success' onClick={reset}>last letter</Button>}
             </div>
         </div>
         <div style={{'color':'black', 'textAlign':'center'}}>
-            {Object.keys(clients).map(name => {
-                return (
-                    <p key={name}>{name + ' --> ' + clients[name]}</p>
-                )
-            })}
+            <Table dark>
+                <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>letter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {Object.keys(clients).map((name,i) => {
+                    return (
+                        <tr key={name}>
+                            <td>{name}</td>
+                            <td>{clients[name]}</td>
+                        </tr>
+                    )
+                })}
+                </tbody>
+            </Table>
         </div>
         </>
     )

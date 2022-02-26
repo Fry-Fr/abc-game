@@ -119,20 +119,6 @@ header {
   align-items: center;
 }
 
-#reset-btn {
-  background-color: #afac4c;
-}
-.gameboard-wrapper button {
-  margin: .6rem 0 0;
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
 .gameboard::selection {
   background:transparent;
 }
@@ -146,6 +132,11 @@ header {
 .line-through {
   color: rgb(97, 19, 19);
   font-weight: 300;
+}
+
+.table {
+  width: 60%;
+  margin:  .75rem auto 0;
 }
 
 @media (max-width: 600px) {
@@ -164,5 +155,8 @@ header {
   }
   .gameboard {
     line-height: 90%;
+  }
+  .table {
+    width: 95%;
   }
 }
