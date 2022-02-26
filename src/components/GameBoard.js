@@ -99,7 +99,7 @@ const GameBoard = ({ name }) => {
             </div>
         </div>
         <div style={{'color':'black', 'textAlign':'center'}}>
-            <Table dark>
+            <Table>
                 <thead>
                     <tr>
                         <th>name</th>
