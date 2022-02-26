@@ -26,11 +26,18 @@ const GameBoard = ({ name }) => {
         })
     },[alphabet, count, name, clients])
 
+    useEffect(() => {
+        if (socket.connected === false) {
+            socket.connect();
+        }
+        return () => socket.disconnect();
+    },[])
+
     function reset(e) {
         e.preventDefault();
         const btn = e.target;
         if (btn.textContent === "last letter") {
-            socket.emit('forceDisconnect');
+            socket.disconnect();
             handleClick(e);
         }
         if (btn.textContent === "Reset") {
