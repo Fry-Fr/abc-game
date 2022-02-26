@@ -77,7 +77,7 @@ li {
   text-indent: 0rem;
 }
 .section-description button {
-  width: 25%;
+  width: 15%;
 }
 
 .header-div {
@@ -149,4 +149,26 @@ header {
 .line-through {
   color: rgb(97, 19, 19);
   font-weight: 300;
+}
+
+@media (max-width: 600px) {
+  .App {
+    padding-bottom: 1rem;
+  }
+  .section-description {
+    width: 95%;
+    margin: 1rem auto 0;
+  }
+  .section-description button {
+    width: 40%;
+  }
+  .home-container button {
+    width: 75%;
+  }
+  .game-board {
+    width: 95%;
+  }
+  .gameboard {
+    line-height: 90%;
+  }
 }
