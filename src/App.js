@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Header/>
       <Routes>
-        <Route index element={<Main setName={setName}/>} />
+        <Route index element={<Main name={name} setName={setName}/>} />
         <Route path="login" element={<LoginForm/>} />
         <Route path="menu" element={<Menu/>} />
         <Route path="alphabetical-board" element={<GameBoard name={name}/>} />
