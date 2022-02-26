@@ -76,9 +76,6 @@ li {
   text-align: center;
   text-indent: 0rem;
 }
-.section-description button {
-  width: 15%;
-}
 
 .header-div {
   text-align: center;
@@ -158,9 +155,6 @@ header {
   .section-description {
     width: 95%;
     margin: 1rem auto 0;
-  }
-  .section-description button {
-    width: 40%;
   }
   .home-container button {
     width: 75%;
