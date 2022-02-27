@@ -20,26 +20,28 @@ const GameBoard = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (socket.connected === false) {
+        if (socket.connected === false && props.online === true) {
             socket.connect();
             return () => socket.disconnect();
         }
         return () => socket.disconnect();
-    },[])
+    },[props.online])
 
     useEffect(() => {
-        socket.on("connect", () => {
+        if (props.online === true) {
+            socket.on("connect", () => {
+                socket.on("clientList", (list) => {
+                    setClients(list)
+                })
+            });
+            if (alphabet[count] !== clients[props.player]) {
+                socket.emit("setClient", {name: props.player, letter: alphabet[count]})
+            }
             socket.on("clientList", (list) => {
                 setClients(list)
             })
-        });
-        if (alphabet[count] !== clients[props.player]) {
-            socket.emit("setClient", {name: props.player, letter: alphabet[count]})
         }
-        socket.on("clientList", (list) => {
-            setClients(list)
-        })
-    },[alphabet, count, props.player, clients])
+    },[props.online, alphabet, count, props.player, clients])
 
 
     function reset(e) {
@@ -106,7 +108,8 @@ const GameBoard = (props) => {
             { visited.length <= 25 ? <Button color='danger' onClick={handleClick}>next</Button> : <Button color='success' onClick={reset}>last letter</Button>}
             </div>
         </div>
-        <div style={{'color':'black', 'textAlign':'center'}}>
+        {!props.online ? undefined :
+         <div style={{'color':'black', 'textAlign':'center'}}>
             <Table>
                 <thead>
                     <tr>
@@ -125,7 +128,7 @@ const GameBoard = (props) => {
                 })}
                 </tbody>
             </Table>
-        </div>
+        </div>}
         </>
     )
 }
