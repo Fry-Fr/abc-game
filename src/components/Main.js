@@ -5,7 +5,7 @@ import { Input, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react
 
 const Main = (props) => {
     const [modalState, setModalState] = useState(false);
-    const [name, setName] = useState('');
+    const [name, setName] = useState(!props.player ? '' : props.player);
 
     const handleChange = (e) => {
         setName(e.target.value)
