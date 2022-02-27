@@ -3,22 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import { Table, Button } from 'reactstrap';
 import { io } from "socket.io-client";
 
-const socket = io("localhost:3333");
-socket.on("connect", () => {});
-socket.on("disconnect", () => {});
+const socket = io(process.env.REACT_APP_URL || "localhost:3333");
+socket.on("connect", () => console.log("connected"));
+socket.on("disconnect", () => console.log("disconnected"));
 
 const GameBoard = ({ name }) => {
     const [count, setCount] = useState(0);
     const [visited, setVistited] = useState([0]);
     const [clients, setClients] = useState({});
-
+    
     let alphabet = 'abcdefghijklmnopqrstuvwxyz';
     alphabet = alphabet.toUpperCase();
     alphabet = alphabet.split('');
-
+    
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (socket.connected === false) {
+            socket.connect();
+            return () => socket.disconnect();
+        }
+        return () => socket.disconnect();
+    },[])
+
+    useEffect(() => {
+        socket.on("connect", () => {
+            socket.on("clientList", (list) => {
+                setClients(list)
+            })
+        });
         if (alphabet[count] !== clients[name]) {
             socket.emit("setClient", {name: name, letter: alphabet[count]})
         }
@@ -27,12 +40,6 @@ const GameBoard = ({ name }) => {
         })
     },[alphabet, count, name, clients])
 
-    useEffect(() => {
-        if (socket.connected === false) {
-            socket.connect();
-        }
-        return () => socket.disconnect();
-    },[])
 
     function reset(e) {
         e.preventDefault();
