@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import { setPlayerName, toggleOnline } from '../actions';
 import { Input, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-const Main = ({ name, setName }) => {
+const Main = (props) => {
     const [modalState, setModalState] = useState(false);
+    const [name, setName] = useState('');
 
     const handleChange = (e) => {
         setName(e.target.value)
@@ -11,7 +14,11 @@ const Main = ({ name, setName }) => {
         setModalState(true)
     }
     const handleOkClick = (e) => {
+        props.setPlayerName(name);
         setModalState(false)
+    }
+    const handleOnline = (e) => {
+        props.toggleOnline();
     }
     return (
         <>
@@ -33,14 +40,21 @@ const Main = ({ name, setName }) => {
                 Enter name...
             </ModalHeader>
             <ModalBody>
-                <Input type='text' onChange={handleChange} value={name} />
+                <Input type='text' onChange={handleChange} value={props.player ? props.player : undefined} />
             </ModalBody>
             <ModalFooter>
                 <Button onClick={handleOkClick}>Ok</Button>
+                <Button onClick={handleOnline}>Online?</Button>
             </ModalFooter>
         </Modal>
          }
         </>
     )
 }
-export default Main;
+const mapToProps = (state) => {
+    return{
+        player: state.player,
+        online: state.online
+    }
+}
+export default connect(mapToProps,{setPlayerName, toggleOnline})(Main);

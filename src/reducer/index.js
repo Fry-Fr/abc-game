@@ -1,19 +1,24 @@
-import { SET_NAME } from '../actions';
+import { SET_NAME, TOGGLE_ONLINE } from '../actions';
 
 const initialState = {
-    name:'',
+    player:'',
     online: false
 }
 
 const reducer = (state=initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case SET_NAME:
             return({
                 ...state,
-                name: action.payload
+                player: action.payload
+            })
+        case TOGGLE_ONLINE:
+            return({
+                ...state,
+                online: !state.online
             })
         default:
-            return state
+            return state;
     }
 }
 

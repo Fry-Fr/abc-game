@@ -1,5 +1,6 @@
 import {useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
 import { io } from "socket.io-client";
 
@@ -7,7 +8,7 @@ const socket = io(process.env.REACT_APP_URL || "localhost:3333");
 socket.on("connect", () => console.log("connected"));
 socket.on("disconnect", () => console.log("disconnected"));
 
-const GameBoard = ({ name }) => {
+const GameBoard = (props) => {
     const [count, setCount] = useState(0);
     const [visited, setVistited] = useState([0]);
     const [clients, setClients] = useState({});
@@ -32,13 +33,13 @@ const GameBoard = ({ name }) => {
                 setClients(list)
             })
         });
-        if (alphabet[count] !== clients[name]) {
-            socket.emit("setClient", {name: name, letter: alphabet[count]})
+        if (alphabet[count] !== clients[props.player]) {
+            socket.emit("setClient", {name: props.player, letter: alphabet[count]})
         }
         socket.on("clientList", (list) => {
             setClients(list)
         })
-    },[alphabet, count, name, clients])
+    },[alphabet, count, props.player, clients])
 
 
     function reset(e) {
@@ -128,4 +129,11 @@ const GameBoard = ({ name }) => {
         </>
     )
 }
-export default GameBoard;
+
+const mapToProps = (state) => {
+    return({
+        player: state.player,
+        online: state.online
+    })
+}
+export default connect(mapToProps)(GameBoard);
