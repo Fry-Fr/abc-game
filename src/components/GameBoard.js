@@ -2,11 +2,7 @@ import {useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
-import { io } from "socket.io-client";
-
-const socket = io(process.env.REACT_APP_URL || "localhost:3333");
-socket.on("connect", () => console.log("connected"));
-socket.on("disconnect", () => console.log("disconnected"));
+import { socket } from '../utils/socket';
 
 const GameBoard = (props) => {
     const [count, setCount] = useState(0);
@@ -22,7 +18,6 @@ const GameBoard = (props) => {
     useEffect(() => {
         if (socket.connected === false && props.online === true) {
             socket.connect();
-            return () => socket.disconnect();
         }
         return () => socket.disconnect();
     },[props.online])
