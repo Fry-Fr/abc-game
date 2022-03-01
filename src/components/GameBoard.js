@@ -47,7 +47,7 @@ const GameBoard = (props) => {
             handleClick(e);
         }
         if (btn.textContent === "Reset") {
-            navigate("/menu");
+            navigate("/menu", { replace: true });
         }
     }
 

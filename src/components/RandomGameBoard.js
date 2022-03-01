@@ -1,20 +1,52 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { connect } from 'react-redux';
+import { Table, Button } from 'reactstrap';
+import { socket } from '../utils/socket';
 
-const RandomBoard = () => {
+const RandomBoard = (props) => {
     const [count, setCount] = useState(0);
-    const [visited, setVistited] = useState([0])
+    const [visited, setVistited] = useState([0]);
+    const [clients, setClients] = useState({});
+    
+    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    alphabet = alphabet.toUpperCase();
+    alphabet = alphabet.split('');
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (socket.connected === false && props.online === true) {
+            socket.connect();
+        }
+        return () => socket.disconnect();
+    },[props.online])
+
+    useEffect(() => {
+        if (props.online === true) {
+            socket.on("connect", () => {
+                socket.on("clientList", (list) => {
+                    setClients(list)
+                })
+            });
+            if (alphabet[count] !== clients[props.player]) {
+                socket.emit("setClient", {name: props.player, letter: alphabet[count]})
+            }
+            socket.on("clientList", (list) => {
+                setClients(list)
+            })
+        }
+    },[props.online, alphabet, count, props.player, clients])
 
     const reset = (e) => {
         e.preventDefault();
         const btn = e.target;
         if (btn.textContent === "last letter") {
+            socket.disconnect();
             handleRandomClick(e);
         }
         if (btn.textContent === "Reset") {
-            navigate("/menu");
+            navigate("/menu", { replace:true });
         }
     }
 
@@ -35,9 +67,6 @@ const RandomBoard = () => {
         return div.className = 'gameboard'
     },[count, visited])
 
-    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    alphabet = alphabet.toUpperCase();
-    alphabet = alphabet.split('');
 
 
     function randomize() {
@@ -74,6 +103,7 @@ const RandomBoard = () => {
     }
 
     return(
+        <>
         <div className="game-board">
             <h1>GAMEBOARD</h1>
             <div className="gameboard-wrapper">
@@ -86,9 +116,38 @@ const RandomBoard = () => {
             </div>}
             { visited.length >= 26 ? null : <><span>Click on the letter.</span>
             <span>Or</span> </> }
-            { visited.length <= 25 ? <button onClick={handleRandomClick}>next</button> : <button onClick={reset}>last letter</button>}
+            { visited.length <= 25 ? <Button color="primary" onClick={handleRandomClick}>next</Button> : <Button color="success" onClick={reset}>last letter</Button>}
             </div>
         </div>
+        {!props.online ? undefined :
+         <div style={{'color':'black', 'textAlign':'center'}}>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>name</th>
+                        <th>letter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {Object.keys(clients).map((name,i) => {
+                    return (
+                        <tr key={name}>
+                            <td>{name}</td>
+                            <td>{clients[name]}</td>
+                        </tr>
+                    )
+                })}
+                </tbody>
+            </Table>
+        </div>}
+        </>
     )
 }
-export default RandomBoard;
+
+const mapToProps = (state) => {
+    return({
+        player: state.player,
+        online: state.online
+    })
+}
+export default connect(mapToProps) (RandomBoard);

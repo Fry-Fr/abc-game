@@ -7,3 +7,11 @@ socket.on("connect", () => {
     engine.once('upgrade', () => console.log(engine.transport.name))
 });
 socket.on("disconnect", () => console.log("disconnected"));
+
+export function turnOnSocket(onlineStatus) {
+    if (onlineStatus) {
+        socket.connect();
+    }else {
+        socket.disconnect();
+    }
+};
