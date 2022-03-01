@@ -13,6 +13,9 @@ const Main = (props) => {
     },[props.online])
 
     const handleChange = (e) => {
+        if (e.target.value.length === 0 && props.online === true) {
+            props.toggleOnline();
+        }
         setName(e.target.value);
     }
     const handleNameClick = (e) => {
@@ -49,7 +52,7 @@ const Main = (props) => {
             </ModalBody>
             <ModalFooter>
                 <Button onClick={handleOkClick}>Ok</Button>
-                <Button onClick={handleOnline}>{!props.online ? 'Online ❌' : 'Online ✅'}</Button>
+                <Button onClick={handleOnline} disabled={name.length === 0 ? true : false} >{!props.online ? 'Online ❌' : 'Online ✅'}</Button>
             </ModalFooter>
         </Modal>
          }
