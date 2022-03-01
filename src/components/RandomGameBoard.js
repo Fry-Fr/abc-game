@@ -5,8 +5,8 @@ import { Table, Button } from 'reactstrap';
 import { socket } from '../utils/socket';
 
 const RandomBoard = (props) => {
-    const [count, setCount] = useState(0);
-    const [visited, setVistited] = useState([0]);
+    const [visited, setVistited] = useState([]);
+    const [count, setCount] = useState(() => randomize());
     const [clients, setClients] = useState({});
     
     let alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -70,7 +70,7 @@ const RandomBoard = (props) => {
 
 
     function randomize() {
-        if (visited.length !== 26) {
+        if (visited.length !== 26 && visited.length !== 0) {
             while (true) {
                 const randNum = Math.floor(Math.random() * 26);
                 if (visited.includes(randNum)) {
@@ -80,7 +80,11 @@ const RandomBoard = (props) => {
                     return randNum;
                 };
             };
-        };
+        }else {
+            const initRandNum = Math.floor(Math.random() * 26);
+            setVistited([...visited, initRandNum]);
+            return initRandNum;
+        }
     };
 
     const handleRandomClick = (event) => {
