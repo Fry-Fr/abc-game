@@ -6,7 +6,7 @@ import { turnOnSocket } from '../utils/socket';
 
 const Main = (props) => {
     const [modalState, setModalState] = useState(false);
-    const [name, setName] = useState(!props.player ? '' : props.player);
+    const [name, setName] = useState('');
 
     useEffect(() => {
         turnOnSocket(props.online);
@@ -19,6 +19,7 @@ const Main = (props) => {
         setName(e.target.value);
     }
     const handleNameClick = (e) => {
+        setName(props.player);
         setModalState(true);
     }
     const handleOkClick = (e) => {
@@ -44,11 +45,16 @@ const Main = (props) => {
         { !modalState ? undefined 
         : 
         <Modal isOpen={modalState}>
-            <ModalHeader toggle={() => setModalState(false)}>
+            <ModalHeader toggle={() => {
+                if (props.player === '' && props.online === true) {
+                    props.toggleOnline();
+                }
+                setModalState(false)
+            }}>
                 Enter name...
             </ModalHeader>
             <ModalBody>
-                <Input type='text' onChange={handleChange} value={props.player ? props.player : undefined} />
+                <Input type='text' onChange={handleChange} value={name} />
             </ModalBody>
             <ModalFooter>
                 <Button onClick={handleOkClick}>Ok</Button>
