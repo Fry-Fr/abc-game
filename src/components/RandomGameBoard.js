@@ -118,8 +118,8 @@ const RandomBoard = (props) => {
             : <div className="gameboard" style={{cursor: "default"}}>
             {alphabet[count]}
             </div>}
-            { visited.length >= 26 ? null : <><span>Click on the letter.</span>
-            <span>Or</span> </> }
+            { visited.length >= 26 ? null : <><span>Remaining letters:</span>
+            <span>{26 - visited.length}</span></> }
             { visited.length <= 25 ? <Button color="primary" onClick={handleRandomClick}>next</Button> : <Button color="success" onClick={reset}>last letter</Button>}
             </div>
         </div>
