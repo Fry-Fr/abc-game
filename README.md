@@ -4,3 +4,7 @@
 
 > #### Two options or game modes to play:
 > - Alphabetical or Randomly ordered
+> - Also, enter a name and connect to the server to see realtime updates to play with others around. 
+> ##### ** This is not built to scale for users to join in multiple rooms. You might see random players. **
+### Enjoy!
+#### Visit here: [ABC Game](https://abc-game.vercel.app)
